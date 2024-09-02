@@ -425,7 +425,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 339062235}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 481435708}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CheckData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 339062233}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &465696069
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +557,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 465696071}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 481435708}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CheckData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 465696069}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &481435706
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 481435707}
+  - component: {fileID: 481435708}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -577,6 +602,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &481435708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481435706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79bb38263eef3f546b7a21d6d762bf3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Language: 0
+  DisplayedItem: 
+  ParticleSystem: {fileID: 1682225680}
+  _currentItem: 
 --- !u!1 &535217032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,7 +1494,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1303213450}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 481435708}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CheckData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1303213448}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1402939211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1662,7 +1715,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1460459191}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 481435708}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CheckData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1460459189}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1555841577
 GameObject:
   m_ObjectHideFlags: 0
@@ -6843,7 +6908,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1849151653}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 481435708}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CheckData
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1849151651}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1908512845
 GameObject:
   m_ObjectHideFlags: 0
