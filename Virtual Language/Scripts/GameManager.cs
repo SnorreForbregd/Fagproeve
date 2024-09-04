@@ -1,16 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 using System;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+    // Values to add to to add new languages/Items in the code
+
     // Enumerator determining the languages the player can learn
     public enum _language{
-        English
+        English,
+        Norwegian,
     };
+
+    // Lists of the items in the different languages
+    private List<List<string>> _languageList = new List<List<string>>()
+    {
+        new List<string>() {"Apple", "Cucumber", "Fork", "Knife", "Chair", "Table", "Hand", "Spoon", "Tree", "Coffee"},
+        new List<string>() {"Eple", "Agurk", "Gaffel", "Kniv", "Stol", "Bord", "Hand", "Skje", "Tre", "Kaffe"},
+    };
+
+
+
+
+
 
     // Variable determining the current language to learn
     public _language Language;
@@ -23,6 +40,9 @@ public class GameManager : MonoBehaviour
 
     // Transform that holds all the canvases for images
     public Transform CanvasHolder;
+    
+    // Dropdown menu
+    public TMP_Dropdown Dropdown;
 
     // Internal score to count how many correct items the player has chosen in a row
     private int _score = 0;
@@ -35,22 +55,87 @@ public class GameManager : MonoBehaviour
     // List of correctly guessed items
     private List<string> _guessedItems = new List<string>();
 
-    // Lists of the items in the different languages
-    private List<List<string>> _languageList = new List<List<string>>()
-    {
-        new List<string>() {"Apple", "Cucumber", "Fork", "Knife", "Chair", "Table", "Hand", "Spoon", "Tree", "Coffee"},
-    };
+
+    public static GameManager Instance { get; private set; }
+
+
+
+
+
+private void Awake() 
+{ 
+    // If there is an instance, and it's not me, delete myself.
+    
+    if (Instance != null && Instance != this) 
+    { 
+        Debug.Log("Imposter destroyed");
+        Destroy(this); 
+    } 
+    else 
+    { 
+        Debug.Log("Set to Self");
+        Instance = this; 
+    } 
+}
+
+
+
 
 
     void Start()
-    {   CanvasHolder.Find("ScoreCanvas/TextField/Text").GetComponent<TMP_Text>().SetText(_score.ToString());
+    {   
+        UnityEngine.Object.DontDestroyOnLoad(this);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        foreach (string lang in (string[]) Enum.GetNames(typeof(_language)))
+        {
+            Debug.Log(lang);
+            Dropdown.options.Add(item: new TMP_Dropdown.OptionData(image:Resources.Load<Sprite>($"Icons/Flags/Flag_{lang}")));
+        }
+        Dropdown.RefreshShownValue();
+
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void GetDropdownIndex()
+    {
+        string language = Dropdown.options[Dropdown.value].image.name.Substring(5);
+        Enum.TryParse(language, out Language);
+        Debug.Log(Language);
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("A");
+        Debug.Log(scene.name);
+        if(scene.name != "GameScene") return;
+
+        ParticleSystem = GameObject.FindGameObjectsWithTag("ParticleSystem")[0].GetComponent<ParticleSystem>();
+        CanvasHolder = GameObject.FindGameObjectsWithTag("CanvasHolder")[0].transform;
+
+        CanvasHolder.Find("ScoreCanvas/TextField/Text").GetComponent<TMP_Text>().SetText(_score.ToString());
+
+        for(int i = 1;i<=5;i++)
+        {
+            Transform image = CanvasHolder.Find($"Canvas{i}/Image");
+            Action CD = () => CheckData(image.gameObject);
+            image.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => CheckData(image.gameObject));
+        }
+
         InitializeNewGuess();
     }
 
     // Check if the selected frame has the current item
     public void CheckData(GameObject ImageHolder)
     {
-        Image image = ImageHolder.GetComponent<Image>();
+        UnityEngine.UI.Image image = ImageHolder.GetComponent<UnityEngine.UI.Image>();
         _guessedItems.Add(_currentItem);
         Feedback(image.sprite.name == _currentItem);
     }
@@ -106,7 +191,7 @@ public class GameManager : MonoBehaviour
 
         // Randomly select in which frame the correct item should be placed
         int rand = UnityEngine.Random.Range(1, 5);
-        CanvasHolder.Find($"Canvas{rand}/Image").GetComponent<Image>().sprite = CurrentSprite;
+        CanvasHolder.Find($"Canvas{rand}/Image").GetComponent<UnityEngine.UI.Image>().sprite = CurrentSprite;
 
         // List of items that have been added to the frames during this round
         List<string> UsedItems = new List<string>();
@@ -124,7 +209,7 @@ public class GameManager : MonoBehaviour
             // Get a random item that's not been placed in a frame yet
             string newItem = _languageList[(int)_language.English].FindAll(i => !UsedItems.Contains(i))[UnityEngine.Random.Range(0, _languageList[(int)_language.English].FindAll(i => !UsedItems.Contains(i)).Count-1)];
             // Add the item to the frame
-            CanvasHolder.Find($"Canvas{i}/Image").GetComponent<Image>().sprite = Resources.Load<Sprite>(newItem);
+            CanvasHolder.Find($"Canvas{i}/Image").GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>(newItem);
             // Add the item to the list of items that shouldn't be used anymore for this round
             UsedItems.Add(newItem);
         }
